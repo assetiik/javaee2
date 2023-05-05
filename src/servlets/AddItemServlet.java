@@ -1,7 +1,7 @@
 package servlets;
 
-import db.Tasks;
-import db.DBManager;
+import db.DBConnection;
+import db.Items;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,20 +11,20 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet(value = "/add-task")
-public class AddTaskServlet extends HttpServlet {
+public class AddItemServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String name = request.getParameter("task_name");
-        String description = request.getParameter("task_description");
-        String deadlineDate = request.getParameter("task_deadlineDate");
+        String name = request.getParameter("item_name");
+        String description = request.getParameter("item_description");
+        double price = Double.parseDouble(request.getParameter("item_price"));
 
-        Tasks tasks = new Tasks();
-        tasks.setName(name);
-        tasks.setDescription(description);
-        tasks.setDeadlineDate(deadlineDate);
-        DBManager.addTasks(tasks);
+        Items item = new Items();
+        item.setName(name);
+        item.setDescription(description);
+        item.setPrice(price);
+        DBConnection.addItems(item);
 
         response.sendRedirect("/");
 

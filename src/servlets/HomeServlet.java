@@ -1,7 +1,7 @@
 package servlets;
 
-import db.Tasks;
-import db.DBManager;
+import db.DBConnection;
+import db.Items;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,8 +9,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.rmi.ServerException;
 import java.util.ArrayList;
 
 @WebServlet(value = "/home.html")
@@ -18,8 +16,8 @@ public class HomeServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        ArrayList<Tasks> tasks = DBManager.getTasks();
-        request.setAttribute("tasks", tasks);
+        ArrayList<Items> item = DBConnection.getItems();
+        request.setAttribute("item", item);
         request.getRequestDispatcher("/tasks.jsp").forward(request, response);
 
 
